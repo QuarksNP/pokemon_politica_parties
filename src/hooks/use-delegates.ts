@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getAllKeys } from "../libs/get-all-keys";
 import type { Delegate, Delegates } from "../types";
 
-export const useDelegate = () => {
+export const useDelegates = () => {
   const [delegates, setDelegates] = useState<Delegates>([]);
   const [isLoading, setIsLoading] = useState(true);
 
