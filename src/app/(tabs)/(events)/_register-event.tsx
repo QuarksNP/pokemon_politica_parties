@@ -4,15 +4,15 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 import DateTimePicker, { type DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { usePress } from "../../../hooks/use-press";
-import { DelegateTextField } from "../../../types";
+import type { EventTextField } from "../../../types";
 
 
 interface ResgisterEventPros {
     date: string | null,
     imageFileName: string | null,
     audioFileName: string | null,
-    handleChange: (input: DelegateTextField, text: string) => void
-    handleDate: (e: DateTimePickerEvent) => void
+    handleChange: (input: EventTextField, text: string) => void
+    handleDate: (e: DateTimePickerEvent, value: Date) => void
     handlePickImage: () => void
     handlePickAudio: () => void
     handleSubmit: () => void
@@ -85,8 +85,8 @@ export default function RegisterEvent({
                 onPress={handleSubmit}
             />
 
-            {isPress && <DateTimePicker mode="date" value={new Date(Date.now())} onChange={(e) => {
-                handleDate(e);
+            {isPress && <DateTimePicker mode="date" value={new Date((Date.now()))} onChange={(e, value) => {
+                handleDate(e, value as Date);
                 handlePress(false)
             }} />}
         </View>

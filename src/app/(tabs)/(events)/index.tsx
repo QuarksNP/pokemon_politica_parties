@@ -1,24 +1,25 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import RegisterEvent from "./_register-event";
-import { useGetDelegate } from "../../../hooks/use-get-delegate";
-import { useDelegates } from "../../../hooks/use-delegates";
-import { ListOfDelegates } from "./_list-of-delegates";
+import { useGetDelegate } from "../../../hooks/use-get-event";
+import { useEvents } from "../../../hooks/use-events";
+import { ListOfDelegates } from "./_list-of-events";
+import { FloatButton } from "../../../components/float-button";
+import { FontAwesome } from '@expo/vector-icons';
+import { router } from "expo-router";
 
 export default function MainScreen() {
     const {
         documentFileName,
-        delegate,
+        event,
         handlePicker,
         handleGetBasicInfo,
         handleDate } = useGetDelegate()
-    const { delegates, handleAddNewDelegate } = useDelegates()
-
-    console.log(delegate)
+    const { events, handleAddNewEvent } = useEvents()
 
     return (
         <View style={styles.container}>
             <RegisterEvent
-                date={delegate.date}
+                date={event.date}
                 imageFileName={documentFileName.image}
                 audioFileName={documentFileName.audio}
                 handleChange={handleGetBasicInfo}
@@ -26,17 +27,17 @@ export default function MainScreen() {
                 handlePickImage={() => handlePicker("image")}
                 handlePickAudio={() => handlePicker("audio")}
                 handleSubmit={() => {
-                    const { title, date, description, image, audio } = delegate
+                    const { title, date, description, image, audio } = event
 
                     if (title && date && description && image && audio) {
-                        const validDelegate = {
+                        const validEvent = {
                             title,
                             date,
                             description,
                             image,
                             audio
                         }
-                        handleAddNewDelegate(validDelegate)
+                        handleAddNewEvent(validEvent)
                         return;
                     }
 
@@ -44,13 +45,33 @@ export default function MainScreen() {
                 }}
             />
 
-            <ListOfDelegates delegates={delegates} />
+            <View style={styles.list_of_delagates_container}>
+                <ListOfDelegates events={events} itemRoute="../(events)/[id]" />
+            </View>
+
+            {events.length > 0 && <FloatButton
+                backgroundColor="#FF4F5A"
+                handlePress={() => router.navigate("/delete-events/page")}
+            >
+
+                <FontAwesome name="remove" size={24} color="white" />
+            </FloatButton>}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20
+        position: "relative",
+        height: "100%",
+        flex: 1,
+        gap: 20,
+        padding: 20,
+    },
+
+    list_of_delagates_container: {
+        flex: 1,
+        position: "relative",
+        overflow: "hidden",
     }
 })

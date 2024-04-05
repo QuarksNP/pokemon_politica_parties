@@ -3,10 +3,10 @@ import * as Crypto from "expo-crypto"
 
 import { useEffect, useState } from "react";
 import { getAllKeys } from "../libs/get-all-keys";
-import type { Delegate, Delegates } from "../types";
+import type { Event, Events } from "../types";
 
-export const useDelegates = () => {
-  const [delegates, setDelegates] = useState<Delegates>([]);
+export const useEvents = () => {
+  const [events, setEvents] = useState<Events>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,24 +23,24 @@ export const useDelegates = () => {
         }
       }
 
-      setDelegates(delegatesData);
+      setEvents(delegatesData);
       setIsLoading(false);
     }
 
     getData();
-  }, []);
+  }, [events]);
 
-  async function handleAddNewDelegate(delegate: Delegate) {
+  async function handleAddNewEvent(delegate: Event) {
     const id = Crypto.randomUUID().toString();
-    const newDelegate = { id, ...delegate };
+    const newEvent = { id, ...delegate };
 
-    const keys = await getAllKeys();
+    const keys: any = await getAllKeys();
     keys.push(id);
     await SecureStore.setItemAsync("keys", JSON.stringify(keys));
 
-    await SecureStore.setItemAsync(id, JSON.stringify(newDelegate));
-    setDelegates([...delegates, newDelegate]);
+    await SecureStore.setItemAsync(id, JSON.stringify(newEvent));
+    setEvents([...events, newEvent]);
   }
 
-  return { delegates, handleAddNewDelegate }
+  return { events, handleAddNewEvent }
 };

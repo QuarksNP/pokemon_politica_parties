@@ -1,4 +1,4 @@
-export type Delegate = {
+export type Event = {
     id?: string,
     title: string,
     description: string,
@@ -6,6 +6,6 @@ export type Delegate = {
     audio: string
 }
 
-export type Delegates = Delegate[]
+export type Events = Event[]
 
-export type DelegateTextField = "title" | "description"
+export type EventTextField = "title" | "description"

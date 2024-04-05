@@ -2,11 +2,11 @@ import * as DocumentPicker from "expo-document-picker";
 
 import { useState } from "react";
 
-import type { DelegateTextField } from "../types";
+import type { EventTextField } from "../types";
 import { type DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 export const useGetDelegate = () => {
-  const [delegate, setDelegate] = useState({
+  const [event, setEvent] = useState({
     title: null,
     date: null,
     description: null,
@@ -19,18 +19,17 @@ export const useGetDelegate = () => {
     audio: null
   })
 
-  function handleGetBasicInfo(input: DelegateTextField, text: string) {
-    setDelegate((prev) => ({
+  function handleGetBasicInfo(input: EventTextField, text: string) {
+    setEvent((prev) => ({
       ...prev,
       [input]: text,
     }));
   }
 
-  function handleDate(e: DateTimePickerEvent) {
-    const timestamp = e.nativeEvent.timestamp;
-    setDelegate((prev) => ({
+  function handleDate(e: DateTimePickerEvent, value: Date) {
+    setEvent((prev) => ({
       ...prev,
-      date: new Date(timestamp).toLocaleDateString() as any
+      date: new Date(value).toLocaleDateString() as any
     }));
   }
 
@@ -42,7 +41,7 @@ export const useGetDelegate = () => {
     });
 
     if (document.assets) {
-      setDelegate((prev) => ({
+      setEvent((prev) => ({
         ...prev,
         [type]: document.assets[0].uri,
       }));
@@ -54,11 +53,11 @@ export const useGetDelegate = () => {
     }
   }
 
-  return { 
-      delegate,
-      documentFileName, 
-      handlePicker, 
-      handleGetBasicInfo, 
-      handleDate, 
-    };
+  return {
+    event,
+    documentFileName,
+    handlePicker,
+    handleGetBasicInfo,
+    handleDate,
+  };
 };
