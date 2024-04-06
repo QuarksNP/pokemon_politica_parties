@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "delegates",
-    "slug": "delegates",
-    "scheme": "your-app-scheme",
+    "name": "elecciones_20212138",
+    "slug": "elecciones_20212138",
+    "scheme": "delegates",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/liga_pokemon.jpeg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/my-pic.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,15 +20,24 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/liga_pokemon.jpeg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alberto_gzb.delegates"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/assets/liga_pokemon.jpeg"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "9d8238e7-87de-4945-a3c9-47d8ea7f56c8"
+      }
+    }
   }
 }
